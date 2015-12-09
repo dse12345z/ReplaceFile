@@ -82,14 +82,14 @@
     if (path) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"取消"];
-        [alert addButtonWithTitle:@"複製"];
-        [alert setMessageText:@"是否要複製檔案路徑?"];
+        [alert addButtonWithTitle:@"確定"];
+        [alert setMessageText:@"是否要開啟這個檔案的資料夾"];
         [alert setInformativeText:@"系統訊息"];
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert beginSheetModalForWindow:[self.view window] completionHandler: ^(NSInteger result) {
             BOOL isCopy = result - 1000;
             if (isCopy) {
-                [path copyString];
+                [[path stringByDeletingLastPathComponent] openFolder];
             }
         }];
     }
