@@ -10,8 +10,9 @@
 
 @interface ViewController ()
 
-@property (weak) IBOutlet NSTextField *oldFolderTextField;
-@property (weak) IBOutlet NSTextField *folderTextField;
+@property (weak) IBOutlet NSPathControl *fromSourcePathControl;
+@property (weak) IBOutlet NSPathControl *toSourcePathControl;
+
 @property (weak) IBOutlet NSTableView *tableView;
 @property (strong) NSMutableArray *freshImages;
 @property (strong) NSMutableArray *oldImages;
@@ -29,54 +30,88 @@
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    return 30;
+    return 100;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *result = [tableView makeViewWithIdentifier:@"tableViewCell" owner:self];
+    result.textField.bezeled = NO;
+    result.textField.drawsBackground = NO;
+    result.textField.editable = NO;
+    result.textField.lineBreakMode = NSLineBreakByWordWrapping;
+    result.layer.backgroundColor = [[NSColor whiteColor] CGColor];
     
-    
-    NSTextField *result = [tableView makeViewWithIdentifier:@"tableView" owner:self];
-    if (result == nil) {
-        result = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
-        result.bezeled = NO;
-        result.drawsBackground = NO;
-        result.editable = NO;
-    }
     if (row == 0) {
-        result.stringValue = @"---------- newImages ----------";
+        result.textField.stringValue = @"---------- newImages ----------";
+        result.imageView.image = nil;
+        result.layer.backgroundColor = [[NSColor grayColor] CGColor];
     }
     else if (row == self.freshImages.count + 1) {
-        result.stringValue = @"---------- oldImages ----------";
+        result.textField.stringValue = @"---------- oldImages ----------";
+        result.imageView.image = nil;
+        result.layer.backgroundColor = [[NSColor grayColor] CGColor];
     }
     
     if (row < self.freshImages.count + 1 && self.freshImages.count && row > 0) {
-        result.stringValue = self.freshImages[row - 1];
+        NSString *path = self.freshImages[row - 1];
+        NSImage *img = [[NSImage alloc] initWithContentsOfFile:path];
+        result.imageView.image = img;
+        result.textField.stringValue = path;
     }
     else if (self.oldImages.count && row > self.freshImages.count + 1) {
-        result.stringValue = self.oldImages[(row - 1) - (self.freshImages.count + 1)];
+        NSString *path = self.oldImages[(row - 1) - (self.freshImages.count + 1)];
+        NSImage *img = [[NSImage alloc] initWithContentsOfFile:path];
+        result.imageView.image = img;
+        result.textField.stringValue = path;
     }
     return result;
+}
+
+#pragma mark - NSTableView Notifications
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSTableView *tableview = notification.object;
+    NSString *path = nil;
+    if (tableview.selectedRow < self.freshImages.count + 1 && self.freshImages.count && tableview.selectedRow > 0) {
+        path = self.freshImages[tableview.selectedRow - 1];
+    }
+    else if (self.oldImages.count && tableview.selectedRow > self.freshImages.count + 1) {
+        path = self.oldImages[(tableview.selectedRow - 1) - (self.freshImages.count + 1)];
+    }
+    
+    if (path) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"取消"];
+        [alert addButtonWithTitle:@"複製"];
+        [alert setMessageText:@"是否要複製檔案路徑?"];
+        [alert setInformativeText:@"系統訊息"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert beginSheetModalForWindow:[self.view window] completionHandler: ^(NSInteger result) {
+            BOOL isCopy = result - 1000;
+            if (isCopy) {
+                [path copyString];
+            }
+        }];
+    }
 }
 
 #pragma mark - IBAction
 
 - (IBAction)selectOldPathButtonAction:(id)sender {
     __weak typeof(self) weakSelf = self;
-    [self openFolderCompletion: ^(NSString *path) {
-        [weakSelf.oldFolderTextField setStringValue:path];
+    [self openFolderCompletion: ^(NSURL *url) {
+        weakSelf.toSourcePathControl.URL = url;
     }];
 }
 
 - (IBAction)selectNewPathButtonAction:(id)sender {
     __weak typeof(self) weakSelf = self;
-    [self openFolderCompletion: ^(NSString *path) {
-        [weakSelf.folderTextField setStringValue:path];
+    [self openFolderCompletion: ^(NSURL *url) {
+        weakSelf.fromSourcePathControl.URL = url;
     }];
 }
 
 - (IBAction)replaceButtonAction:(id)sender {
-    //    NSLog(@"\n");
-    //    NSLog(@"----- Start -----");
     [self replaceImages];
 }
 
@@ -94,8 +129,8 @@
 - (void)replaceImages {
     [self.freshImages removeAllObjects];
     [self.oldImages removeAllObjects];
-    self.freshImages = [self folderImages:[self.folderTextField stringValue]];
-    self.oldImages = [self folderImages:[self.oldFolderTextField stringValue]];
+    self.freshImages = [self folderImages:self.fromSourcePathControl.URL.path];
+    self.oldImages = [self folderImages:self.toSourcePathControl.URL.path];
     NSMutableArray *newReplaced = [NSMutableArray new];
     NSMutableArray *folderAdded = [NSMutableArray new];
     
@@ -115,13 +150,6 @@
     [self.oldImages removeObjectsInArray:folderAdded];
     [self.freshImages removeObjectsInArray:newReplaced];
     [self.tableView reloadData];
-    //        if (self.freshImages.count) {
-    //            NSLog(@"newImages :%@", self.freshImages);
-    //        }
-    //        if (self.oldImages.count) {
-    //            NSLog(@"oldImages :%@", self.oldImages);
-    //        }
-    //        NSLog(@"----- End -----");
 }
 
 - (NSMutableArray *)folderImages:(NSString *)path {
@@ -140,14 +168,13 @@
     return images;
 }
 
-- (void)openFolderCompletion:(void (^)(NSString *path))completion {
+- (void)openFolderCompletion:(void (^)(NSURL *url))completion {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.canChooseDirectories = YES;
     [panel beginSheetModalForWindow:self.view.window completionHandler: ^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = panel.URLs[0];
-            NSString *path = [[url absoluteString] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-            completion(path);
+            completion(url);
         }
     }];
 }

@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		7EC3129B1C153B9100B848A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3129A1C153B9100B848A4 /* AppDelegate.m */; };
 		7EC3129E1C153B9100B848A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3129D1C153B9100B848A4 /* main.m */; };
-		7EC312A11C153B9100B848A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC312A01C153B9100B848A4 /* ViewController.m */; };
 		7EC312A31C153B9100B848A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC312A21C153B9100B848A4 /* Assets.xcassets */; };
 		7EC312A61C153B9100B848A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC312A41C153B9100B848A4 /* Main.storyboard */; };
 		7EC312B11C153B9100B848A4 /* ReplaceFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC312B01C153B9100B848A4 /* ReplaceFileTests.m */; };
 		7EC312BC1C153B9100B848A4 /* ReplaceFileUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC312BB1C153B9100B848A4 /* ReplaceFileUITests.m */; };
+		7ED360E31C18341300260C87 /* NSString+NSString_ReplaceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED360E21C18341300260C87 /* NSString+NSString_ReplaceFile.m */; };
+		7ED360E81C1836F400260C87 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED360E71C1836F400260C87 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +39,6 @@
 		7EC312991C153B9100B848A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7EC3129A1C153B9100B848A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7EC3129D1C153B9100B848A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7EC3129F1C153B9100B848A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7EC312A01C153B9100B848A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7EC312A21C153B9100B848A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7EC312A51C153B9100B848A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EC312A71C153B9100B848A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +48,11 @@
 		7EC312B71C153B9100B848A4 /* ReplaceFileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReplaceFileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC312BB1C153B9100B848A4 /* ReplaceFileUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceFileUITests.m; sourceTree = "<group>"; };
 		7EC312BD1C153B9100B848A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7ED360E11C18341300260C87 /* NSString+NSString_ReplaceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSString_ReplaceFile.h"; sourceTree = "<group>"; };
+		7ED360E21C18341300260C87 /* NSString+NSString_ReplaceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_ReplaceFile.m"; sourceTree = "<group>"; };
+		7ED360E41C18346600260C87 /* ReplaceFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceFile.pch; sourceTree = "<group>"; };
+		7ED360E61C1836F400260C87 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7ED360E71C1836F400260C87 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +103,12 @@
 		7EC312981C153B9100B848A4 /* ReplaceFile */ = {
 			isa = PBXGroup;
 			children = (
+				7ED360DF1C1833A000260C87 /* Category */,
 				7EC312991C153B9100B848A4 /* AppDelegate.h */,
 				7EC3129A1C153B9100B848A4 /* AppDelegate.m */,
-				7EC3129F1C153B9100B848A4 /* ViewController.h */,
-				7EC312A01C153B9100B848A4 /* ViewController.m */,
+				7ED360E51C1836F400260C87 /* ViewController */,
 				7EC312A21C153B9100B848A4 /* Assets.xcassets */,
 				7EC312A41C153B9100B848A4 /* Main.storyboard */,
-				7EC312A71C153B9100B848A4 /* Info.plist */,
 				7EC3129C1C153B9100B848A4 /* Supporting Files */,
 			);
 			path = ReplaceFile;
@@ -115,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				7EC3129D1C153B9100B848A4 /* main.m */,
+				7EC312A71C153B9100B848A4 /* Info.plist */,
+				7ED360E41C18346600260C87 /* ReplaceFile.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -135,6 +140,24 @@
 				7EC312BD1C153B9100B848A4 /* Info.plist */,
 			);
 			path = ReplaceFileUITests;
+			sourceTree = "<group>";
+		};
+		7ED360DF1C1833A000260C87 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				7ED360E11C18341300260C87 /* NSString+NSString_ReplaceFile.h */,
+				7ED360E21C18341300260C87 /* NSString+NSString_ReplaceFile.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		7ED360E51C1836F400260C87 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7ED360E61C1836F400260C87 /* ViewController.h */,
+				7ED360E71C1836F400260C87 /* ViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EC312A11C153B9100B848A4 /* ViewController.m in Sources */,
+				7ED360E31C18341300260C87 /* NSString+NSString_ReplaceFile.m in Sources */,
 				7EC3129E1C153B9100B848A4 /* main.m in Sources */,
 				7EC3129B1C153B9100B848A4 /* AppDelegate.m in Sources */,
+				7ED360E81C1836F400260C87 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREFIX_HEADER = ReplaceFile/ReplaceFile.pch;
 				INFOPLIST_FILE = ReplaceFile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.tyche.ReplaceFile;
@@ -411,6 +436,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREFIX_HEADER = ReplaceFile/ReplaceFile.pch;
 				INFOPLIST_FILE = ReplaceFile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.tyche.ReplaceFile;
@@ -489,6 +515,7 @@
 				7EC312C21C153B9100B848A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7EC312C31C153B9100B848A4 /* Build configuration list for PBXNativeTarget "ReplaceFileTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +524,7 @@
 				7EC312C51C153B9100B848A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7EC312C61C153B9100B848A4 /* Build configuration list for PBXNativeTarget "ReplaceFileUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +533,7 @@
 				7EC312C81C153B9100B848A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
